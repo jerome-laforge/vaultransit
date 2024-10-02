@@ -2,6 +2,7 @@ package vaultransit
 
 import (
 	"bytes"
+	"cmp"
 	"crypto"
 	"encoding/base64"
 	"encoding/json"
@@ -12,8 +13,6 @@ import (
 )
 
 var _ crypto.Signer = Client{}
-
-const BasePathSign = "/v1/transit/sign"
 
 type (
 	SignReq struct {
@@ -51,7 +50,7 @@ func (c Client) Sign(_ io.Reader, digest []byte, opts crypto.SignerOpts) (signat
 		return nil, err
 	}
 
-	URL := c.URL + BasePathSign + "/" + c.EncryptionKeyName + "/" + hashAlgo
+	URL := c.URL + "/v1/" + cmp.Or(c.SecretEngine, "transit") + "/sign/" + c.EncryptionKeyName + "/" + hashAlgo
 	req, err := http.NewRequest(http.MethodPost, URL, bytes.NewBuffer(body))
 	if err != nil {
 		return nil, err

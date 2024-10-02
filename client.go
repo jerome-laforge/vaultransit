@@ -8,6 +8,7 @@ import (
 
 type Config struct {
 	URL                string
+	SecretEngine       string // SecretEngine the default value is transit
 	EncryptionKeyName  string
 	SignatureAlgorithm SignatureAlgorithm
 	Token              string
