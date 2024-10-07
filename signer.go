@@ -57,11 +57,11 @@ func (c Client) Sign(_ io.Reader, digest []byte, opts crypto.SignerOpts) (signat
 	}
 
 	if c.Token != "" {
-		req.Header.Set("X-Vault-Token", c.Token)
+		req.Header.Set(XVaultToken, c.Token)
 	}
 
 	if c.Namespace != "" {
-		req.Header.Set("X-Vault-Namespace", c.Namespace)
+		req.Header.Set(XVaultNamespace, c.Namespace)
 	}
 
 	httpClient := http.DefaultClient

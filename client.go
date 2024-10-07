@@ -34,3 +34,8 @@ func Hash(hash crypto.Hash) (string, error) {
 		return "", errors.New("unsupported hash algorithm")
 	}
 }
+
+const (
+	XVaultToken     = "X-Vault-Token"
+	XVaultNamespace = "X-Vault-Namespace"
+)
