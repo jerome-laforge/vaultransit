@@ -28,6 +28,8 @@ type (
 	}
 )
 
+const Version = "/v1"
+
 type SignatureAlgorithm string
 
 const (
@@ -50,7 +52,7 @@ func (c Client) Sign(_ io.Reader, digest []byte, opts crypto.SignerOpts) (signat
 		return nil, err
 	}
 
-	URL := c.URL + "/v1/" + cmp.Or(c.SecretEngine, "transit") + "/sign/" + c.EncryptionKeyName + "/" + hashAlgo
+	URL := c.URL + Version + "/" + cmp.Or(c.SecretEngine, "transit") + "/sign/" + c.EncryptionKeyName + "/" + hashAlgo
 	req, err := http.NewRequest(http.MethodPost, URL, bytes.NewBuffer(body))
 	if err != nil {
 		return nil, err
